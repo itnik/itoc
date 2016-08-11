@@ -1,3 +1,6 @@
+/*! ztree_toc - v0.2.2 - 2014-02-08
+* https://github.com/i5ting/jQuery.zTree_Toc.js
+* Copyright (c) 2014 alfred.sang; Licensed MIT */
 function encode_id_with_array(opts,arr) {
 	var result = 0;
   	for(var z = 0; z < arr.length; z++ ) {  
@@ -7,6 +10,16 @@ function encode_id_with_array(opts,arr) {
 	return result;
 }
 
+
+/**
+ * 1.1.1 = 1*100*100 + 1*100 + 1
+ * 1.2.2 = 1*100*100 + 2*100 + 3
+ *
+ * 1 = 0*100 +1
+
+	1,1 = 100
+
+ */ 
 function get_parent_id_with_array(opts,arr) {
 	var result_arr = [];
 

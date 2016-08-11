@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * 依赖
+ * Module dependencies.
  */
 function isDefined(x) { return x !== null && x !== undefined; } 
 Array.prototype.contain = function(obj) {
@@ -11,16 +11,13 @@ Array.prototype.contain = function(obj) {
 var program = require('commander');
 var version = require("../package.json").version;
 
-/**
- * 命令
- */
 program
-	.version(version)
-	.usage("itoc is a npm to help Mou generated it's sidebar")
-	.option('-f, --file', 'default is README.md ')
+  .version(version)
+	.usage(" a node npm wrapper of i5ting_ztree_toc https://github.com/i5ting/i5ting_ztree_toc ")
+  .option('-f, --file [filename]', ' default is README.md ')
 	.option('-o, --open', 'open in browser')
-	.option('-v, --verbose', 'print log in the console')
-	.parse(process.argv);
+	.option('-v, --verbose', '打印详细日志')
+  .parse(process.argv);
 	
 var pwd = process.cwd()  
 var filename = "README.md";
@@ -55,15 +52,17 @@ var markd_config = {
 	debug: false
 }
 
-/**
- * 打印生成文件的路径
- */
+//函数可以返回当前正在执行的项目路径
 var pwd = process.cwd()  
+
 var source_file_name = pwd + '/' + source_file
 var file_name = source_file_name.split('/').pop();;
 var _file_name = file_name.split('.')[0];
+
 var dest_file_path = pwd + '/preview/' + _file_name + '.html';
+
 console.log('pwd=' + pwd);
 console.log('source_file_name=' + source_file_name);
 console.log('dest_file_path=' + dest_file_path);
+
 require('../index')(pwd, source_file_name, dest_file_path, is_open, markd_config);
