@@ -1,0 +1,42 @@
+{
+  "name": "itoc",
+  "version": "1.0.0",
+  "description": "itoc is a npm to help Mou generated it's sidebar",
+  "keywords": [
+    "markdown",
+    "md",
+    "toc",
+    "itoc"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "start": "npm publish .",
+    "test": " node bin/cmd.js -f sample.md -v -o"
+  },
+  "preferGlobal": "true",
+  "bin": {
+    "itoc": "bin/cmd.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/itnik/itoc.git"
+  },
+  "author": "itnik",
+  "license": "ISC",
+  "dependencies": {
+    "bufferhelper": "^0.2.0",
+    "commander": "^2.5.0",
+    "config": "^1.7.0",
+    "handlebars": "^2.0.0",
+    "marked": "^0.3.2",
+    "object-assign": "^1.0.0",
+    "open": "0.0.5",
+    "shelljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "gulp-livereload": "^2.1.1",
+    "gulp-watch": "^0.7.0",
+    "mocha": "*"
+  },
+  "homepage": "https://github.com/itnik/itoc"
+}
