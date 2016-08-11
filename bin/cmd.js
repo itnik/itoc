@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 /**
  * 依赖
  */
