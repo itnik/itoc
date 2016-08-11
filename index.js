@@ -78,5 +78,4 @@ function generator(pwd, source_file_name, dest_file_path, is_open, options) {
 		});
 	});
 };
-
 module.exports = generator
