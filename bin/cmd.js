@@ -1,8 +1,5 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
 function isDefined(x) { return x !== null && x !== undefined; } 
 Array.prototype.contain = function(obj) {
   return this.indexOf(obj) !== -1;
@@ -12,12 +9,12 @@ var program = require('commander');
 var version = require("../package.json").version;
 
 program
-  .version(version)
-	.usage(" a node npm wrapper of i5ting_ztree_toc https://github.com/i5ting/i5ting_ztree_toc ")
-  .option('-f, --file [filename]', ' default is README.md ')
+    .version(version)
+	.usage(" itoc is a npm to help Mou generated it's sidebar ")
+    .option('-f, --file [filename]', 'default is README.md')
 	.option('-o, --open', 'open in browser')
-	.option('-v, --verbose', '打印详细日志')
-  .parse(process.argv);
+	.option('-v, --verbose', 'print the log')
+    .parse(process.argv);
 	
 var pwd = process.cwd()  
 var filename = "README.md";
@@ -52,7 +49,6 @@ var markd_config = {
 	debug: false
 }
 
-//函数可以返回当前正在执行的项目路径
 var pwd = process.cwd()  
 
 var source_file_name = pwd + '/' + source_file
