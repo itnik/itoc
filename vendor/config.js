@@ -1,7 +1,7 @@
 var jquery_ztree_toc_opts = {
     //是否开启DEBUG
     debug: false,
-    //是否显示Header编号
+    //目录是否自动编号
     is_auto_number: true,
     //是否展开所有节点
     is_expand_all: true,
