@@ -7,9 +7,11 @@ var jquery_ztree_toc_opts = {
     is_expand_all: true,
     //是否对选中行显示高亮效果
     is_highlight_selected_line: true,
+    //根节点名称
     _header_nodes_name:'API',
     //扫描header的根dom
     documment_selector: '.markdown-body',
+    //ztree配置
     ztreeStyle: {
         width: '326px',
         overflow: 'auto',

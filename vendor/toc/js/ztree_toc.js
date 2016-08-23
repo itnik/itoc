@@ -164,7 +164,8 @@ $(function ($) {
         _header_offsets: [],
         //定义ZTree根节点
         _header_nodes: null,
-        _header_nodes_name:"Table of Content",
+        //默认根节点名称
+        _header_nodes_name:"API",
         //是否开启Debug
         debug: true,
         //节点高亮的开始位置

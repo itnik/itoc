@@ -89,7 +89,6 @@
 .columns.equacols.bordered {
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
-    background: url("/images/modules/global/column_separator.gif?3736594c") 50% 0 repeat-y
 }
 
 .contactcols .first {
@@ -3587,8 +3586,7 @@ table.capped-list.mini-icons .mini-icon {
 }
 
 .markdown-body hr {
-    border: 1px solid;
-    color: #eee;
+    border: 1px solid #eee;
     margin: 15px 0
 }
 
