@@ -1,6 +1,6 @@
 {
   "name": "itoc",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "itoc is a npm to help Mou generated it's sidebar",
   "keywords": [
     "markdown",
@@ -41,5 +41,8 @@
     "gulp-watch": "^0.7.0",
     "mocha": "*"
   },
-  "homepage": "https://github.com/itnik/itoc"
+  "homepage": "https://github.com/itnik/itoc",
+  "directories": {
+    "doc": "doc"
+  }
 }

@@ -77,4 +77,12 @@ Global 全局安装
     -v, --verbose          print the log
 ```
 
-## Preview (预览)
+## Screenshot (截图)
+
+命令
+
+![image](https://github.com/itnik/itoc/blob/master/doc/code.png)
+
+页面
+
+![image](https://github.com/itnik/itoc/blob/master/doc/page.png)
