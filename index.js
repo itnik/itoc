@@ -44,7 +44,7 @@ function generator(pwd, source_file_path, dist_file_path, options) {
     /**
      * 复制模板
      * @param cur_dir 当前目录
-     * @param dest_dir 打包目录
+     * @param dist_dir 打包目录
      * @private 私有函数
      */
     function _cp_template_dir(cur_dir, dist_dir) {
