@@ -1,13 +1,11 @@
 # ITOC
 
-itoc is a npm to help MarkDown generated it's sidebar
+itoc is a npm to help MarkDown file generated it's toc/sidebar !
 
-itoc 是一个node项目，仅需一个命令就能能够帮助MarkDown生成带有侧边栏目录的html.
+itoc 是一个node项目，仅需一个命令就能能够帮助MarkDown生成带有目录/侧边栏的html.
 
 生成侧边栏目录默认配置:
 
-* 是否开启DEBUG
-* debug: false
 * 目录是否自动编号
 * is_auto_number: true
 * 是否展开所有节点
@@ -15,7 +13,7 @@ itoc 是一个node项目，仅需一个命令就能能够帮助MarkDown生成带
 * 是否对选中行显示高亮效果
 * is_highlight_selected_line: true
 * 根节点名称
-* _header_nodes_name:'API'
+* header_nodes_name:'API'
 
 根据自己需要在生成的config.js中配置
 
@@ -46,19 +44,19 @@ Global 全局安装
 
 
 ```
-  itoc -f sample.md
+  itoc -f README.md
 ```
 
 * Base And Open 生成之后打开
 
 ```
-  itoc -f sample.md -o
+  itoc -f README.md -o
 ```
 
 * Base And Open With Log 生成之后打开且生成日志
 
 ```
-  itoc -f sample.md -o -v
+  itoc -f README.md -o -d
 ```
 
 * Other 其他
@@ -66,15 +64,15 @@ Global 全局安装
 ```
   itoc -h
 
-  Usage: itoc is a npm to help Mou generated it's sidebar
+    Usage: itoc  itoc is a npm to help MarkDown file generated it's toc/sidebar !
 
-  Options:
+    Options:
 
-    -h, --help             output usage information
-    -V, --version          output the version number
-    -f, --file [filename]  default is README.md 
-	-o, --open             open in browser
-    -v, --verbose          print the log
+      -h, --help             output usage information
+      -V, --version          output the version number
+      -f, --file [filename]  default is README.md
+      -o, --open             open in browser
+      -d, --debug            open debug mode
 ```
 
 ## Screenshot (截图)

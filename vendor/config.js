@@ -1,6 +1,4 @@
 var jquery_ztree_toc_opts = {
-    //是否开启DEBUG
-    debug: false,
     //目录是否自动编号
     is_auto_number: true,
     //是否展开所有节点
@@ -8,7 +6,7 @@ var jquery_ztree_toc_opts = {
     //是否对选中行显示高亮效果
     is_highlight_selected_line: true,
     //根节点名称
-    _header_nodes_name:'API',
+    header_nodes_name: 'API',
     //扫描header的根dom
     documment_selector: '.markdown-body',
     //ztree配置

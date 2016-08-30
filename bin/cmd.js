@@ -1,64 +1,70 @@
 #!/usr/bin/env node
 
-function isDefined(x) { return x !== null && x !== undefined; } 
-Array.prototype.contain = function(obj) {
-  return this.indexOf(obj) !== -1;
+function isDefined(x) {
+    return x !== null && x !== undefined;
 }
+Array.prototype.contain = function (obj) {
+    return this.indexOf(obj) !== -1;
+};
 
+//加载命令行依赖
 var program = require('commander');
+//读取版本号
 var version = require("../package.json").version;
 
+//定义命令
 program
     .version(version)
-	.usage(" itoc is a npm to help Mou generated it's sidebar ")
+    .usage(" itoc is a npm to help MarkDown file generated it's toc/sidebar !")
     .option('-f, --file [filename]', 'default is README.md')
-	.option('-o, --open', 'open in browser')
-	.option('-v, --verbose', 'print the log')
+    .option('-o, --open', 'open in browser')
+    .option('-d, --debug', 'open debug mode')
     .parse(process.argv);
-	
-var pwd = process.cwd()  
+
+//获取脚本的工作目录
+var pwd = process.cwd();
+//Md文件名称
 var filename = "README.md";
+//是否在浏览器中打开
 var is_open = false;
+//是否开启DEBUG
+var debug = false;
 
+//-f命令
 if (program.file) {
-	filename = program.file;
+    filename = program.file;
 }
 
+//-o命令
 if (program.open) {
-	is_open = program.open;
+    is_open = program.open;
 }
 
-var verbose = false;
-if (program.verbose) {
-	verbose = program.verbose;
+//-d命令
+if (program.debug) {
+    debug = program.debug;
 }
 
-var _verbose = verbose;
-function log(str){
-	if(_verbose == true){
-		console.log(str);
-	}
-}
+//默认配置
+var default_config = {
+    debug: debug,
+    is_open: is_open
+};
 
-log('filename = ' + filename); 
-log('verbose = ' + verbose);
-
-var source_file = filename;
-
-var markd_config = {
-	debug: false
-}
-
-var pwd = process.cwd()  
-
-var source_file_name = pwd + '/' + source_file
-var file_name = source_file_name.split('/').pop();;
-var _file_name = file_name.split('.')[0];
-
-var dest_file_path = pwd + '/preview/' + _file_name + '.html';
-
-console.log('pwd=' + pwd);
-console.log('source_file_name=' + source_file_name);
-console.log('dest_file_path=' + dest_file_path);
-
-require('../index')(pwd, source_file_name, dest_file_path, is_open, markd_config);
+//源文件目录 带后缀
+var source_file_path = pwd + '/' + filename;
+//源文件名称 带后缀
+var file_name = source_file_path.split('/').pop();
+//打包文件目录 带后缀
+var dist_file_path = pwd + '/api/' + file_name.split('.')[0] + '.html';
+//控制台打印
+console.log('FileName');
+console.log('==> ' + filename);
+console.log('PWD');
+console.log('==> ' + pwd);
+console.log('SourceFilePath');
+console.log('==> ' + source_file_path);
+console.log('DistFilePath');
+console.log('==> ' + dist_file_path);
+//调用主程序
+require('../index')(pwd, source_file_path, dist_file_path, default_config);

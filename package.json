@@ -1,7 +1,7 @@
 {
   "name": "itoc",
-  "version": "1.1.1",
-  "description": "itoc is a npm to help Mou generated it's sidebar",
+  "version": "1.1.5",
+  "description": "itoc is a npm to help MarkDown file generated it's toc/sidebar ",
   "keywords": [
     "markdown",
     "md",
@@ -11,7 +11,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm publish",
-    "test": "node bin/cmd.js -f README.md -v -o"
+    "test": "node bin/cmd.js -f README.md -o -d"
   },
   "preferGlobal": "true",
   "bin": {

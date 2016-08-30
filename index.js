@@ -1,4 +1,5 @@
 'use strict';
+//载入依赖
 require('shelljs/global');
 var assign = require('object-assign');
 var fs = require('fs');
@@ -6,82 +7,124 @@ var BufferHelper = require('bufferhelper');
 var Handlebars = require('handlebars');
 var open = require("open");
 
-function generator(pwd, source_file_name, dest_file_path, is_open, options) {
-	var file_name = source_file_name.split('/').pop();;
-	var _file_name = file_name.split('.')[0];
-	
-	var is_debug = options.debug;
-	function log(str){
-		if(is_debug == true)
-			console.log(str);
-	}
-	var str = fs.realpathSync('.');  
-	log(str);  
-	var pwd = pwd
-	var preview_path = pwd + '/preview';
-	var source_file_path = source_file_name;
-	var dest_file_path = dest_file_path ;
-	if (test('-d', preview_path)) { 
-		mkdir('-p', preview_path);
-	};
-	cp_template_dir(__dirname, preview_path);
-	_toc_config(__dirname, preview_path);
-	
-	function cp_template_dir(_cur_dir,_dest_dir){
-		var i = _cur_dir;
-		log(i);
-	
-		cp('-R', _cur_dir +'/vendor/toc', _dest_dir+'/');
-	}
-	
-  function _toc_config(_cur_dir,_dest_dir){
-		if (test('-d', _dest_dir + "/config.js")) { 
-			log('toc_conf file exist')
-		}else{
-     cp('-R', _cur_dir +'/vendor/config.js', _dest_dir+'/');
-		}
-  }
-	
-	var template_path = __dirname + '/vendor/template.html';
-	log('template_path = ' + template_path);
-	
-	fs.readFile(source_file_path, function (err, data) {
-	  if (err) throw err;
-	  log(data);
-    var rs = fs.createReadStream(template_path, {bufferSize: 11}); 
-		var bufferHelper = new BufferHelper();
+//定义自动生成方法
+function generator(pwd, source_file_path, dist_file_path, options) {
+    //获取文件名称 不含后缀
+    var file_name = source_file_path.split('/').pop().split('.')[0];
+    //生成目录
+    var api_path = pwd + '/api';
+    //模板路径
+    var template_path = __dirname + '/vendor/template.html';
+    log('ApiPath');
+    log('==> ' + api_path);
+    log('CurModulePath');
+    log('==> ' + __dirname);
+    log('HtmlTemplatePath');
+    log('==> ' + template_path);
 
-		rs.on("data", function (trunk){
-				bufferHelper.concat(trunk);
-		});
-	
-		rs.on("end", function () {
-			var source = bufferHelper.toBuffer().toString('utf8');
-			var template = Handlebars.compile(source);
-		
-			log(template);
-		
-			var	marked = require('marked');	
-			marked(data.toString(), options, function (err, data) {
-				if (err) {
-					log('err ' + err);
-					return;
-				}
-				var content = {
-					"title":_file_name,
-					"parse_markdown": data
-				};
-				var final_html_content = new Buffer( template(content) );
-				fs.writeFile(dest_file_path, final_html_content , function (err) {
-				  if (err) throw err;
-				  log('It\'s saved!');
-					
-					if(is_open == true){
-						open(dest_file_path);
-					}
-				});
-			});
-		});
-	});
+    //检查生成目录是否存在 不存即创建
+    if (test('-d', api_path)) {
+        mkdir('-p', api_path);
+    } else {
+        log('==> ApiPath is exist');
+    }
+    //复制模板
+    _cp_template_dir(__dirname, api_path);
+    _toc_config(__dirname, api_path);
+
+    /**
+     * 打印日志
+     * @param str 字符串
+     */
+    function log(str) {
+        if (options.debug)
+            console.log(str);
+    }
+
+    /**
+     * 复制模板
+     * @param cur_dir 当前目录
+     * @param dest_dir 打包目录
+     * @private 私有函数
+     */
+    function _cp_template_dir(cur_dir, dist_dir) {
+        cp('-R', cur_dir + '/vendor/toc', dist_dir + '/');
+    }
+
+    /**
+     * 目录配置
+     * @param cur_dir 当前目录
+     * @param dist_dir 打包目录
+     * @private 私有函数
+     */
+    function _toc_config(cur_dir, dist_dir) {
+        if (test('-d', dist_dir + "/config.js")) {
+            log('==> config file exist')
+        } else {
+            cp('-R', cur_dir + '/vendor/config.js', dist_dir + '/');
+        }
+    }
+
+    /**
+     * 读取md文件
+     */
+    fs.readFile(source_file_path, function (error, data) {
+        //打印错误
+        if (error) {
+            log('==> read md file error ' + error);
+            return;
+        } else {
+            log('==> read md file success');
+        }
+        //创建可读取的流对象
+        var rs = fs.createReadStream(template_path, {bufferSize: 11});
+        //创建buffer对象
+        var bufferHelper = new BufferHelper();
+        //读取数据事件
+        rs.on("data", function (trunk) {
+            bufferHelper.concat(trunk);
+        });
+        //读取结束事件
+        rs.on("end", function () {
+            //转成字符串
+            var source = bufferHelper.toBuffer().toString('utf8');
+            //编译模板
+            var template = Handlebars.compile(source);
+            //marked解析对象
+            var marked = require('marked');
+            //解析md文件
+            marked(data.toString(), options, function (error, data) {
+                //打印错误
+                if (error) {
+                    log('==> parse md file error ' + error);
+                    return;
+                } else {
+                    log('==> parse md file success');
+                }
+                //定义数据内容
+                var content = {
+                    "title": file_name,
+                    "parse_markdown": data
+                };
+                //数据渲染至模板
+                var final_html_content = new Buffer(template(content));
+                //保存文件
+                fs.writeFile(dist_file_path, final_html_content, function (error) {
+                    //打印错误
+                    if (error) {
+                        log('==> save html file error ' + error);
+                        return;
+                    } else {
+                        log('==> save html file success');
+                    }
+                    //是否在浏览器中打开
+                    if (options.is_open == true) {
+                        open(dist_file_path);
+                    }
+                });
+            });
+        });
+    });
 };
-module.exports = generator
+//公开自动生成接口
+module.exports = generator;

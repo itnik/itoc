@@ -105,7 +105,6 @@ $(function ($) {
             }
             timeout = setTimeout(function () {
                 var top = $(window).scrollTop();
-                if (opts.debug) console.log('top=' + top);
                 for (var i = 0, c = opts._header_offsets.length; i < c; i++) {
                     // fixed: top+5防止点击ztree的时候，出现向上抖动的情况
                     if (opts._header_offsets[i] >= (top + 5)) {
@@ -130,22 +129,12 @@ $(function ($) {
         opts.highlight_offset = $(opts.documment_selector).offset().top;
     }
 
-    /*
-     * 日志
-     */
-    function log(str) {
-        return;
-        if ($.fn.ztree_toc.defaults.debug == true) {
-            console.log(str);
-        }
-    }
-
     $.fn.ztree_toc = function (options) {
         //defaults & options 参数合并
         var opts = $.extend({}, $.fn.ztree_toc.defaults, options);
         return this.each(function () {
             opts._zTree = $(this);
-            opts._header_nodes=[{id: 1, pId: 0, name: opts._header_nodes_name, open: true}];
+            opts._header_nodes = [{id: 1, pId: 0, name: opts.header_nodes_name, open: true}];
             // 初始化
             init_with_config(opts);
             // 创建ztree根节点，获取元数据_headers
@@ -164,10 +153,6 @@ $(function ($) {
         _header_offsets: [],
         //定义ZTree根节点
         _header_nodes: null,
-        //默认根节点名称
-        _header_nodes_name:"API",
-        //是否开启Debug
-        debug: true,
         //节点高亮的开始位置
         highlight_offset: 0,
         //滚动的时候是否节点也跟着高亮
@@ -213,9 +198,7 @@ $(function ($) {
                     if (treeNode.id == 1) {
                         //TODO: 单击根节点
                     }
-                    //defaults & options 参数合并
-                    var opts = $.extend({}, $.fn.ztree_toc.defaults, options);
-                    if (opts.is_highlight_selected_line == true) {
+                    if ($.fn.ztree_toc.defaults.is_highlight_selected_line) {
                         $('#' + treeNode.id).css('color', 'red').fadeOut("slow", function () {
                             $(this).show().css('color', 'black');
                         });
