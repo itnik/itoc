@@ -17253,3 +17253,90 @@ ol.list-tip li:last-child, ul.list-tip li:last-child {
 .context-loader.large-format-loader.is-loading {
     display: block
 }
+/*高亮行号*/
+.markdown-body pre {
+    position: relative;
+    margin-bottom: 24px;
+    border-radius: 3px;
+    border: 1px solid #C3CCD0;
+    background: #FFF;
+    overflow: hidden;
+}
+
+.markdown-body pre code {
+    display: block;
+    padding: 12px 24px;
+    overflow-y: auto;
+    font-weight: 300;
+    font-family: Menlo, monospace;
+    font-size: 0.8em;
+}
+
+.markdown-body pre code.has-numbering {
+    margin-left: 21px;
+}
+
+.pre-numbering{
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 18px 2px 18px 0;
+    border-right: 3px solid #6ce26c !important;
+    text-align: right;
+    color: #afafaf !important;
+}
+
+ul.pre-numbering {
+    padding-left:0px;
+    margin: 0px;
+}
+ul.pre-numbering li{
+    list-style-type:none;
+    padding: 0 0.5em 0 1em !important;
+    font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;
+    font-size: 1em !important;
+
+}
+/*高亮行号*/
+.markdown-body pre {
+    position: relative;
+    margin-bottom: 24px;
+    border-radius: 3px;
+    border: 1px solid #C3CCD0;
+    background: #FFF;
+    overflow: hidden;
+}
+
+.markdown-body pre code {
+    display: block;
+    padding: 12px 24px;
+    overflow-y: auto;
+    font-weight: 300;
+    font-family: Menlo, monospace;
+    font-size: 0.8em;
+}
+
+.markdown-body pre code.has-numbering {
+    margin-left: 21px;
+}
+
+.pre-numbering{
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 18px 2px 18px 0;
+    border-right: 3px solid #6ce26c !important;
+    text-align: right;
+    color: #afafaf !important;
+}
+
+ul.pre-numbering {
+    padding-left:0px;
+    margin: 0px;
+}
+ul.pre-numbering li{
+    list-style-type:none;
+    padding: 0 0.5em 0 1em !important;
+    font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;
+    font-size: 1em !important;
+}

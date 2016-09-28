@@ -4,8 +4,7 @@
     <title>{{title}}</title>
     <link href="toc/css/style.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="toc/css/zTreeStyle/zTreeStyle.css" media="all" rel="stylesheet" type="text/css"/>
-    <link href="highlighter/css/shCore.css" media="all" rel="stylesheet" type="text/css"/>
-    <link href="highlighter/css/shThemeDefault.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="highlight/css/default.css" media="all" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div>
@@ -22,69 +21,24 @@
 <script type="text/javascript" src="toc/js/jquery.ztree.all-3.5.min.js"></script>
 <script type="text/javascript" src="toc/js/ztree_toc.js"></script>
 <script type="text/javascript" src="config.js"></script>
-<script type="text/javascript" src="highlighter/js/shCore.js"></script>
-<script type="text/javascript" src="highlighter/js/shAutoloader.js"></script>
+<script type="text/javascript" src="highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 <script type="text/javascript">
-        $(function () {
+    $(function () {
         //页面配置
         var css_conf = eval(markdown_panel_style);
-        $('#readme').css(css_conf)
+        $('#readme').css(css_conf);
         //目录配置
         var ztree_conf = eval(jquery_ztree_toc_opts);
         $('#tree').ztree_toc(ztree_conf);
-        //解析Tag
-        SyntaxHighlighter.config.tagName="code";
-        //显示行号
-        SyntaxHighlighter.defaults['gutter'] = true;
-        //智能缩进
-        SyntaxHighlighter.defaults['smart-tabs'] = true;
-        //是否开启工具栏 显示版本信息
-        SyntaxHighlighter.defaults['toolbar'] = false;
-        //需要高亮的代码块增加brush 标记
+        //增加行号
         $('pre code').each(function(){
-            if($(this).attr('class')){
-                var cls=$(this).attr('class');
-                var brush=cls.substring((cls.indexOf('-')+1),cls.length);
-                $(this).addClass(('brush:'+brush+';'));
+            var lines = $(this).text().split('\n').length - 1;
+            var $numbering = $('<ul/>').addClass('pre-numbering');
+            $(this).addClass('has-numbering').parent().append($numbering);
+            for(var i=1;i<=lines;i++){
+                $numbering.append($('<li/>').text(i));
             }
-
         });
-        //加载Brush
-        SyntaxHighlighter.autoloader.apply(null, path(
-            'applescript            $shBrushAppleScript.js',
-            'actionscript3 as3      $shBrushAS3.js',
-            'bash shell             $shBrushBash.js',
-            'coldfusion cf          $shBrushColdFusion.js',
-            'cpp c                  $shBrushCpp.js',
-            'c# c-sharp csharp      $shBrushCSharp.js',
-            'css                    $shBrushCss.js',
-            'delphi pascal          $shBrushDelphi.js',
-            'diff patch pas         $shBrushDiff.js',
-            'erl erlang             $shBrushErlang.js',
-            'groovy                 $shBrushGroovy.js',
-            'java                   $shBrushJava.js',
-            'jfx javafx             $shBrushJavaFX.js',
-            'js jscript javascript  $shBrushJScript.js',
-            'perl pl                $shBrushPerl.js',
-            'php                    $shBrushPhp.js',
-            'text plain             $shBrushPlain.js',
-            'powershell ps          $shBrushPowerShell.js',
-            'py python              $shBrushPython.js',
-            'ruby rails ror rb      $shBrushRuby.js',
-            'sass scss              $shBrushSass.js',
-            'scala                  $shBrushScala.js',
-            'sql                    $shBrushSql.js',
-            'vb vbnet               $shBrushVb.js',
-            'xml xhtml xslt html    $shBrushXml.js'
-        ));
-        SyntaxHighlighter.all();
     });
-    //返回完整Brush路径
-    function path() {
-        var args = arguments,
-        result = [];
-        for (var i = 0; i < args.length; i++)
-            result.push(args[i].replace('$', 'highlighter/js/'));
-        return result
-    }
 </script>

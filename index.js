@@ -31,7 +31,7 @@ function generator(pwd, source_file_path, dist_file_path, options) {
     //复制模板
     _cp_static(__dirname, api_path);
     _cp_config(__dirname, api_path);
-    _cp_highlighter(__dirname, api_path);
+    _cp_highlight(__dirname, api_path);
 
     /**
      * 打印日志
@@ -68,8 +68,8 @@ function generator(pwd, source_file_path, dist_file_path, options) {
      * @param dist_dir 打包目录
      * @private 私有函数
      */
-    function _cp_highlighter(cur_dir, dist_dir) {
-        cp('-R', cur_dir + '/vendor/highlighter', dist_dir + '/');
+    function _cp_highlight(cur_dir, dist_dir) {
+        cp('-R', cur_dir + '/vendor/highlight', dist_dir + '/');
     }
 
     /**
