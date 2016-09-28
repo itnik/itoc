@@ -29,8 +29,9 @@ function generator(pwd, source_file_path, dist_file_path, options) {
         log('==> ApiPath is exist');
     }
     //复制模板
-    _cp_template_dir(__dirname, api_path);
-    _toc_config(__dirname, api_path);
+    _cp_static(__dirname, api_path);
+    _cp_config(__dirname, api_path);
+    _cp_highlighter(__dirname, api_path);
 
     /**
      * 打印日志
@@ -42,27 +43,33 @@ function generator(pwd, source_file_path, dist_file_path, options) {
     }
 
     /**
-     * 复制模板
+     * 复制静态文件
      * @param cur_dir 当前目录
      * @param dist_dir 打包目录
      * @private 私有函数
      */
-    function _cp_template_dir(cur_dir, dist_dir) {
+    function _cp_static(cur_dir, dist_dir) {
         cp('-R', cur_dir + '/vendor/toc', dist_dir + '/');
     }
 
     /**
-     * 目录配置
+     * 复制配置文件
      * @param cur_dir 当前目录
      * @param dist_dir 打包目录
      * @private 私有函数
      */
-    function _toc_config(cur_dir, dist_dir) {
-        if (test('-d', dist_dir + "/config.js")) {
-            log('==> config file exist')
-        } else {
-            cp('-R', cur_dir + '/vendor/config.js', dist_dir + '/');
-        }
+    function _cp_config(cur_dir, dist_dir) {
+        cp('-R', cur_dir + '/vendor/config.js', dist_dir + '/');
+    }
+
+    /**
+     * 复制代码高亮文件
+     * @param cur_dir 当前目录
+     * @param dist_dir 打包目录
+     * @private 私有函数
+     */
+    function _cp_highlighter(cur_dir, dist_dir) {
+        cp('-R', cur_dir + '/vendor/highlighter', dist_dir + '/');
     }
 
     /**
