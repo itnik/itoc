@@ -1,3 +1,5 @@
+
+//遍历子节点重新编号
 function encode_id_with_array(opts, arr) {
     var result = 0;
     for (var z = 0; z < arr.length; z++) {
@@ -5,7 +7,7 @@ function encode_id_with_array(opts, arr) {
     }
     return result;
 }
-
+//遍历父节点重新编号
 function get_parent_id_with_array(opts, arr) {
     var result_arr = [];
     for (var z = 0; z < arr.length; z++) {
@@ -19,6 +21,7 @@ function get_parent_id_with_array(opts, arr) {
     return result;
 }
 
+//编号
 function factor(opts, count, current) {
     if (1 == count) {
         return current;
@@ -194,10 +197,8 @@ $(function ($) {
             },
             callback: {
                 beforeClick: function (treeId, treeNode) {
+                    //TODO: 单击根节点
                     $('a').removeClass('curSelectedNode');
-                    if (treeNode.id == 1) {
-                        //TODO: 单击根节点
-                    }
                     if ($.fn.ztree_toc.defaults.is_highlight_selected_line) {
                         $('#' + treeNode.id).css('color', 'red').fadeOut("slow", function () {
                             $(this).show().css('color', 'black');
@@ -205,12 +206,9 @@ $(function ($) {
                     }
                 },
                 onRightClick: function (event, treeId, treeNode) {
-                    if (treeNode.id == 1) {
-                        // TODO: 右击根节点
-                    }
+                    // TODO: 右击根节点
                 }
             }
         }
     };
-
-})(jQuery);
+});

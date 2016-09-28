@@ -4,71 +4,16 @@
     <title>{{title}}</title>
     <link href="toc/css/style.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="toc/css/zTreeStyle/zTreeStyle.css" media="all" rel="stylesheet" type="text/css"/>
-    <style>
-        pre {
-            counter-reset: line-numbering;
-            border: solid 1px #d9d9d9;
-            border-radius: 0;
-            background: #fff;
-            padding: 0;
-            line-height: 23px;
-            margin-bottom: 30px;
-            white-space: pre;
-            overflow-x: auto;
-            word-break: inherit;
-            word-wrap: inherit;
-        }
-
-        pre a::before {
-            content: counter(line-numbering);
-            counter-increment: line-numbering;
-            padding-right: 1em;
-            width: 25px;
-            text-align: right;
-            opacity: 0.7;
-            display: inline-block;
-            color: #aaa;
-            background: #eee;
-            margin-right: 16px;
-            padding: 2px 10px;
-            font-size: 13px;
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-
-        pre a:first-of-type::before {
-            padding-top: 10px;
-        }
-
-        pre a:last-of-type::before {
-            padding-bottom: 10px;
-        }
-
-        pre a:only-of-type::before {
-            padding: 10px;
-        }
-
-        .highlight {
-            background-color: #ffffcc
-        }
-
-    </style>
+    <link href="highlighter/css/shCore.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="highlighter/css/shThemeDefault.css" media="all" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div>
     <div style='width:25%;'>
-        <ul id="tree" class="ztree" style='width:100%'>
-
-        </ul>
+        <ul id="tree" class="ztree" style='width:100%'></ul>
     </div>
     <div id='readme' style='width:70%;margin-left:20%;'>
-        <article class='markdown-body'>
-            {{{parse_markdown}}}
-        </article>
+        <article class='markdown-body'>{{{parse_markdown}}}</article>
     </div>
 </div>
 </body>
@@ -77,13 +22,69 @@
 <script type="text/javascript" src="toc/js/jquery.ztree.all-3.5.min.js"></script>
 <script type="text/javascript" src="toc/js/ztree_toc.js"></script>
 <script type="text/javascript" src="config.js"></script>
-
+<script type="text/javascript" src="highlighter/js/shCore.js"></script>
+<script type="text/javascript" src="highlighter/js/shAutoloader.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
+        $(function () {
+        //页面配置
         var css_conf = eval(markdown_panel_style);
         $('#readme').css(css_conf)
+        //目录配置
+        var ztree_conf = eval(jquery_ztree_toc_opts);
+        $('#tree').ztree_toc(ztree_conf);
+        //解析Tag
+        SyntaxHighlighter.config.tagName="code";
+        //显示行号
+        SyntaxHighlighter.defaults['gutter'] = true;
+        //智能缩进
+        SyntaxHighlighter.defaults['smart-tabs'] = true;
+        //是否开启工具栏 显示版本信息
+        SyntaxHighlighter.defaults['toolbar'] = false;
+        //需要高亮的代码块增加brush 标记
+        $('pre code').each(function(){
+            if($(this).attr('class')){
+                var cls=$(this).attr('class');
+                var brush=cls.substring((cls.indexOf('-')+1),cls.length);
+                $(this).addClass(('brush:'+brush+';'));
+            }
 
-        var conf = eval(jquery_ztree_toc_opts);
-        $('#tree').ztree_toc(conf);
+        });
+        //加载Brush
+        SyntaxHighlighter.autoloader.apply(null, path(
+            'applescript            $shBrushAppleScript.js',
+            'actionscript3 as3      $shBrushAS3.js',
+            'bash shell             $shBrushBash.js',
+            'coldfusion cf          $shBrushColdFusion.js',
+            'cpp c                  $shBrushCpp.js',
+            'c# c-sharp csharp      $shBrushCSharp.js',
+            'css                    $shBrushCss.js',
+            'delphi pascal          $shBrushDelphi.js',
+            'diff patch pas         $shBrushDiff.js',
+            'erl erlang             $shBrushErlang.js',
+            'groovy                 $shBrushGroovy.js',
+            'java                   $shBrushJava.js',
+            'jfx javafx             $shBrushJavaFX.js',
+            'js jscript javascript  $shBrushJScript.js',
+            'perl pl                $shBrushPerl.js',
+            'php                    $shBrushPhp.js',
+            'text plain             $shBrushPlain.js',
+            'powershell ps          $shBrushPowerShell.js',
+            'py python              $shBrushPython.js',
+            'ruby rails ror rb      $shBrushRuby.js',
+            'sass scss              $shBrushSass.js',
+            'scala                  $shBrushScala.js',
+            'sql                    $shBrushSql.js',
+            'vb vbnet               $shBrushVb.js',
+            'xml xhtml xslt html    $shBrushXml.js'
+        ));
+        SyntaxHighlighter.all();
     });
+    //返回完整Brush路径
+    function path() {
+        var args = arguments,
+        result = [];
+        for (var i = 0; i < args.length; i++)
+            result.push(args[i].replace('$', 'highlighter/js/'));
+        return result
+    }
 </script>
