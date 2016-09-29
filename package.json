@@ -1,6 +1,6 @@
 {
   "name": "itoc",
-  "version": "2.0.3",
+  "version": "2.0.8",
   "description": "itoc is a npm to help MarkDown file generated it's toc/sidebar ",
   "keywords": [
     "markdown",
@@ -27,11 +27,11 @@
     "url": "https://github.com/itnik/itoc/issues"
   },
   "dependencies": {
-    "bufferhelper": "^0.2.0",
-    "commander": "^2.5.0",
-    "config": "^1.7.0",
-    "handlebars": "^2.0.0",
-    "marked": "^0.3.2",
+    "bufferhelper": "^0.2.1",
+    "commander": "^2.9.0",
+    "config": "^1.21.0",
+    "handlebars": "^3.0.3",
+    "marked": "^0.3.6",
     "object-assign": "^1.0.0",
     "open": "0.0.5",
     "shelljs": "^0.3.0"

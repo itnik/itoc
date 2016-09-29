@@ -99,8 +99,24 @@ function generator(pwd, source_file_path, dist_file_path, options) {
             var template = Handlebars.compile(source);
             //marked解析对象
             var marked = require('marked');
+            marked.setOptions({
+                //关闭只解析标准md
+                pedantic: false,
+                //启动Github样式
+                gfm: true,
+                //支持Github换行符
+                breaks: true,
+                //支持Github表格
+                tables: true,
+                //原始输出
+                sanitize: false,
+                //优化列表输出
+                smartLists: true,
+                smartypants: false
+
+            });
             //解析md文件
-            marked(data.toString(), options, function (error, data) {
+            marked(data.toString(), function (error, data) {
                 //打印错误
                 if (error) {
                     log('==> parse md file error ' + error);
