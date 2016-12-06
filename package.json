@@ -1,6 +1,6 @@
 {
   "name": "itoc",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "description": "itoc is a npm to help MarkDown file generated it's toc/sidebar ",
   "keywords": [
     "markdown",

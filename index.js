@@ -25,6 +25,7 @@ function generator(pwd, source_file_path, dist_file_path, options) {
     //检查生成目录是否存在 不存即创建
     if (test('-d', api_path)) {
         mkdir('-p', api_path);
+        log('==> api path is created');
     } else {
         log('==> api path is exist');
     }
@@ -49,6 +50,9 @@ function generator(pwd, source_file_path, dist_file_path, options) {
      * @private 私有函数
      */
     function _cp_static(cur_dir, dist_dir) {
+        if (test('-d', (dist_dir + '/toc'))) {
+            mkdir('-p', (dist_dir + '/toc'));
+        }
         cp('-R', cur_dir + '/vendor/toc', dist_dir + '/');
     }
 
@@ -69,6 +73,9 @@ function generator(pwd, source_file_path, dist_file_path, options) {
      * @private 私有函数
      */
     function _cp_highlight(cur_dir, dist_dir) {
+        if (test('-d', (dist_dir + '/highlight'))) {
+            mkdir('-p', (dist_dir + '/highlight'));
+        }
         cp('-R', cur_dir + '/vendor/highlight', dist_dir + '/');
     }
 
@@ -141,22 +148,22 @@ function generator(pwd, source_file_path, dist_file_path, options) {
                         log('==> save html file success');
                         //是否压缩
                         if (options.archive) {
-                            // 创建一个流归档数据的文件
+                            //创建一个流归档数据的文件
                             var output = fs.createWriteStream(options.archive_path + '.zip');
                             var archive = archiver('zip', {
                                 store: true //设置压缩方法
                             });
-                            // 监听要写入的所有归档数据
+                            //监听要写入的所有归档数据
                             output.on('close', function () {
-                                log('==> '+archive.pointer() + ' total bytes');
+                                log('==> ' + archive.pointer() + ' total bytes');
                                 log('==> archive has been finalized and the output file descriptor has closed.');
                             });
-                            // 捕获错误
+                            //捕获错误
                             archive.on('error', function (error) {
                                 log('==> archive file error ' + error);
                                 return;
                             });
-                            // 通过管道把数据归档到文件中
+                            //通过管道把数据归档到文件中
                             archive.pipe(output);
                             //批量添加文件
                             archive.bulk([
@@ -167,7 +174,7 @@ function generator(pwd, source_file_path, dist_file_path, options) {
                                     dest: file_name + '/'
                                 }
                             ]);
-                            // 完成档案（关闭流）
+                            //完成档案（关闭流）
                             archive.finalize();
                             log('==> archive file success ');
                         }
