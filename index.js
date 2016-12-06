@@ -6,27 +6,27 @@ var fs = require('fs');
 var BufferHelper = require('bufferhelper');
 var Handlebars = require('handlebars');
 var open = require("open");
+var archiver = require('archiver');
 
 //定义自动生成方法
 function generator(pwd, source_file_path, dist_file_path, options) {
     //获取文件名称 不含后缀
     var file_name = source_file_path.split('/').pop().split('.')[0];
     //生成目录
-    var api_path = pwd + '/'+file_name;
+    var api_path = pwd + '/' + file_name;
     //模板路径
     var template_path = __dirname + '/vendor/template.html';
-    log('ApiPath');
+    log('api path');
     log('==> ' + api_path);
-    log('CurModulePath');
+    log('cur module path');
     log('==> ' + __dirname);
-    log('HtmlTemplatePath');
+    log('html template path');
     log('==> ' + template_path);
-
     //检查生成目录是否存在 不存即创建
     if (test('-d', api_path)) {
         mkdir('-p', api_path);
     } else {
-        log('==> ApiPath is exist');
+        log('==> api path is exist');
     }
     //复制模板
     _cp_static(__dirname, api_path);
@@ -139,6 +139,38 @@ function generator(pwd, source_file_path, dist_file_path, options) {
                         return;
                     } else {
                         log('==> save html file success');
+                        //是否压缩
+                        if (options.archive) {
+                            // 创建一个流归档数据的文件
+                            var output = fs.createWriteStream(options.archive_path + '.zip');
+                            var archive = archiver('zip', {
+                                store: true //设置压缩方法
+                            });
+                            // 监听要写入的所有归档数据
+                            output.on('close', function () {
+                                log('==> '+archive.pointer() + ' total bytes');
+                                log('==> archive has been finalized and the output file descriptor has closed.');
+                            });
+                            // 捕获错误
+                            archive.on('error', function (error) {
+                                log('==> archive file error ' + error);
+                                return;
+                            });
+                            // 通过管道把数据归档到文件中
+                            archive.pipe(output);
+                            //批量添加文件
+                            archive.bulk([
+                                {
+                                    expand: true,
+                                    cwd: options.archive_path + '/',
+                                    src: ['**'],
+                                    dest: file_name + '/'
+                                }
+                            ]);
+                            // 完成档案（关闭流）
+                            archive.finalize();
+                            log('==> archive file success ');
+                        }
                     }
                     //是否在浏览器中打开
                     if (options.is_open == true) {

@@ -19,6 +19,7 @@ program
     .option('-f, --file [filename]', 'default is README.md')
     .option('-o, --open', 'open in browser')
     .option('-d, --debug', 'open debug mode')
+    .option('-a, --archive', 'archive file')
     .parse(process.argv);
 
 //获取脚本的工作目录
@@ -29,6 +30,8 @@ var filename = "README.md";
 var is_open = false;
 //是否开启DEBUG
 var debug = false;
+//是否压缩
+var archive = false;
 
 //-f命令
 if (program.file) {
@@ -44,27 +47,32 @@ if (program.open) {
 if (program.debug) {
     debug = program.debug;
 }
-
-//默认配置
-var default_config = {
-    debug: debug,
-    is_open: is_open
-};
-
+//-a命令
+if (program.archive) {
+    archive = program.archive;
+}
 //源文件目录 带后缀
 var source_file_path = pwd + '/' + filename;
 //源文件名称 带后缀
 var file_name = source_file_path.split('/').pop();
 //打包文件目录 带后缀
 var dist_file_path = (pwd + '/'+(file_name.split('.')[0])+'/' + (file_name.split('.')[0]) + '.html');
+//默认配置
+var default_config = {
+    debug: debug,
+    is_open: is_open,
+    archive: archive,
+    archive_path: (pwd + '/'+(file_name.split('.')[0]))
+};
+
 //控制台打印
-console.log('FileName');
+console.log('upload file path');
 console.log('==> ' + filename);
-console.log('PWD');
+console.log('current path');
 console.log('==> ' + pwd);
-console.log('SourceFilePath');
+console.log('source file path');
 console.log('==> ' + source_file_path);
-console.log('DistFilePath');
+console.log('dist file path');
 console.log('==> ' + dist_file_path);
 //调用主程序
 require('../index')(pwd, source_file_path, dist_file_path, default_config);
