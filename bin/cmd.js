@@ -56,7 +56,7 @@ var source_file_path = pwd + '/' + filename;
 //源文件名称 带后缀
 var file_name = source_file_path.split('/').pop();
 //打包文件目录 带后缀
-var dist_file_path = pwd + '/api/' + file_name.split('.')[0] + '.html';
+var dist_file_path = (pwd + '/'+(file_name.split('.')[0])+'/' + (file_name.split('.')[0]) + '.html');
 //控制台打印
 console.log('FileName');
 console.log('==> ' + filename);

@@ -12,7 +12,7 @@ function generator(pwd, source_file_path, dist_file_path, options) {
     //获取文件名称 不含后缀
     var file_name = source_file_path.split('/').pop().split('.')[0];
     //生成目录
-    var api_path = pwd + '/api';
+    var api_path = pwd + '/'+file_name;
     //模板路径
     var template_path = __dirname + '/vendor/template.html';
     log('ApiPath');
