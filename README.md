@@ -1,65 +1,68 @@
-# ITOC
+# 简介
 
-itoc is a npm to help MarkDown file generated it's toc/sidebar !
+itoc 是一个node项目，仅需一个命令就能能够帮助MarkDown生成带有导航目录/侧边栏的html.
 
-itoc 是一个node项目，仅需一个命令就能能够帮助MarkDown生成带有目录/侧边栏的html.
+支持:
 
-生成侧边栏目录默认配置:
+* 导航自动编号
+* 选中显示高亮
+* 代码自动识别高亮
+* 代码自动行号
+* 生成文件压缩
+* 灵活配置
 
-* 目录是否自动编号
-* is_auto_number: true
-* 是否展开所有节点
-* is_expand_all: true
-* 是否对选中行显示高亮效果
-* is_highlight_selected_line: true
-* 根节点名称
-* header_nodes_name:'API'
-
-根据自己需要在生成的config.js中配置
-
-## Install (安装)
+根据自己需要在生成的config.js中定制配置html的显示效果
 
 
-Should install NodeJs environment first.
+## 安装
 
-安装NodeJs环境才可以使用npm命令。
 
-local 本地安装
+首先你需要有一个Node环境可以使用npm命令
 
-```
-  npm install itoc
-```
-
-Global 全局安装
+安装
 
 ```
   sudo npm install -g itoc
 ```
+更新
+
+```
+  sudo npm update -g itoc
+```
+
+卸载
+
+```
+  sudo npm uninstall -g itoc
+```
 	
-## Usage (使用)
+## 使用
 
-* Base 基本命令
-
-可以直接生成文件 生成文件的目录会打印出来
-
+* 生成文件
 
 ```
   itoc -f README.md
 ```
 
-* Base And Open 生成之后打开
+* 生成之后浏览器打开
 
 ```
   itoc -f README.md -o
 ```
 
-* Base And Open With Log 生成之后打开且生成日志
+* DEBUG模式生成文件
 
 ```
-  itoc -f README.md -o -d
+  itoc -f README.md -d
 ```
 
-* Other 其他
+* 生成文件且压缩
+
+```
+  itoc -f README.md -d -a
+```
+
+* 帮助
 
 ```
   itoc -h
@@ -73,14 +76,60 @@ Global 全局安装
       -f, --file [filename]  default is README.md
       -o, --open             open in browser
       -d, --debug            open debug mode
+      -a, --archive          archive file
 ```
 
-## Screenshot (截图)
+## 示例
+
+### 用户登录
+**接口说明:**`用户登录`
+
+**调用地址:**`http://host/User/login`
+
+**参数名称:**`param`
+
+**参数示例:**
+
+```
+{    "data": {        "user": {            "account": "itnik",            "pwd": "111111"        },        "session_id": "e10ac973d7dd9e5628f3e1b1",        "user_id": "0",        "city_id": "4",        "version": "3.0.6"    }}
+```
+
+参数          |  类型  | 必填 | 描述
+------------:|:------:|:---:|:-----------
+user         | object | Y   | 用户信息
+user.account | string | Y   | 账号
+user.pwd     | string | Y   | 密码
+session_id   | string | Y   | SessionId
+user_id      | string | N   | 用户ID 默认0
+city_id      | string | Y   | 城市ID 默认0
+version      | string | Y   | 版本号
+
+
+**调用方式:**`POST|GET`
+
+**返回示例:**
+
+```
+{  "data": {    "id": "xx",    "email": "xx",    "name": "xx"  },  "info": "xx",  "status": "200"}```
+
+参数        | 类型    | 描述
+----------:|:------:|:------------
+id         | string | 用户ID
+email      | string | 用户邮箱
+name       | string | 用户名
+
+### 效果
 
 命令
 
 ![image](https://github.com/itnik/itoc/blob/master/doc/code.png)
 
-页面
+页面1
 
-![image](https://github.com/itnik/itoc/blob/master/doc/page.png)
+![image](https://github.com/itnik/itoc/blob/master/doc/page1.png)
+
+页面2
+
+![image](https://github.com/itnik/itoc/blob/master/doc/page2.png)
+
+
