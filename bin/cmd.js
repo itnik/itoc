@@ -52,7 +52,8 @@ if (program.archive) {
     archive = program.archive;
 }
 
-var source_file_path='';
+//源文件目录 带后缀(默认是相对路径)
+var source_file_path = pwd + '/' + filename;
 //根据首字母判断相对路径和绝对路径
 var first_char=filename.substr(0,1);
 if(first_char=='.'){
@@ -61,8 +62,6 @@ if(first_char=='.'){
     source_file_path=filename;
 }
 
-//源文件目录 带后缀
-//var source_file_path = pwd + '/' + filename;
 //源文件名称 带后缀
 var file_name = source_file_path.split('/').pop();
 //打包文件目录 带后缀
