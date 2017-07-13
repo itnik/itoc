@@ -1,11 +1,12 @@
 # 简介
 
-itoc 是一个node项目，仅需一个命令就能能够帮助MarkDown生成带有导航目录/侧边栏的html.
+itoc 生成器，仅需一个命令就能能够帮助MarkDown文件生成带有左侧边栏导航目录的html文件.
 
 支持:
 
-* 导航自动编号
-* 选中显示高亮
+* 绝对路径/相对路径<sup><font color=res>NEW</font></sup>
+* 导航目录自动编号
+* 选中导航目录显示高亮
 * 代码自动识别高亮
 * 代码自动行号
 * 生成文件压缩
@@ -82,7 +83,8 @@ itoc 是一个node项目，仅需一个命令就能能够帮助MarkDown生成带
 ## 示例
 
 ### 用户登录
-**接口说明:**`用户登录`
+
+**接口说明:**`用户登录`
 
 **调用地址:**`http://host/User/login`
 
@@ -91,7 +93,18 @@ itoc 是一个node项目，仅需一个命令就能能够帮助MarkDown生成带
 **参数示例:**
 
 ```
-{    "data": {        "user": {            "account": "itnik",            "pwd": "111111"        },        "session_id": "e10ac973d7dd9e5628f3e1b1",        "user_id": "0",        "city_id": "4",        "version": "3.0.6"    }}
+{
+    "data": {
+        "user": {
+            "account": "itnik",
+            "pwd": "111111"
+        },
+        "session_id": "e10ac973d7dd9e5628f3e1b1",
+        "user_id": "0",
+        "city_id": "4",
+        "version": "3.0.6"
+    }
+}
 ```
 
 参数          |  类型  | 必填 | 描述
@@ -110,7 +123,16 @@ version      | string | Y   | 版本号
 **返回示例:**
 
 ```
-{  "data": {    "id": "xx",    "email": "xx",    "name": "xx"  },  "info": "xx",  "status": "200"}```
+{
+  "data": {
+    "id": "xx",
+    "email": "xx",
+    "name": "xx"
+  },
+  "info": "xx",
+  "status": "200"
+}
+```
 
 参数        | 类型    | 描述
 ----------:|:------:|:------------

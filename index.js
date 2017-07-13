@@ -187,6 +187,6 @@ function generator(pwd, source_file_path, dist_file_path, options) {
             });
         });
     });
-};
+}
 //公开自动生成接口
 module.exports = generator;
