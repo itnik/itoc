@@ -15,7 +15,7 @@ var version = require("../package.json").version;
 //定义命令
 program
     .version(version)
-    .usage(" itoc is a npm to help MarkDown file generated it's toc/sidebar !")
+    .usage(" itoc is a npm generator to help MarkDown file generate it's html with sidebar and can highlight the code.")
     .option('-f, --file [filename]', 'default is README.md')
     .option('-o, --open', 'open in browser')
     .option('-d, --debug', 'open debug mode')
@@ -32,7 +32,6 @@ var is_open = false;
 var debug = false;
 //是否压缩
 var archive = false;
-
 //-f命令
 if (program.file) {
     filename = program.file;
