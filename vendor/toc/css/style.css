@@ -17340,3 +17340,20 @@ ul.pre-numbering li{
     font-family: "Consolas", "Bitstream Vera Sans Mono", "Courier New", Courier, monospace !important;
     font-size: 1em !important;
 }
+
+#up {
+    position: fixed;
+    right: 15px;
+    bottom: 100px;
+    width: 50px;
+    height: 50px;
+    background-color: #f60;
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+    display: none;
+    opacity:0.8 !important;
+    border-radius:50% !important;
+}

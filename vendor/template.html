@@ -15,8 +15,7 @@
         <article class='markdown-body'>{{{parse_markdown}}}</article>
     </div>
 </div>
-</body>
-</html>
+<div id="up">Up</div>
 <script type="text/javascript" src="toc/js/jquery-1.4.4.min.js"></script>
 <script type="text/javascript" src="toc/js/jquery.ztree.all-3.5.min.js"></script>
 <script type="text/javascript" src="toc/js/ztree_toc.js"></script>
@@ -32,13 +31,28 @@
         var ztree_conf = eval(jquery_ztree_toc_opts);
         $('#tree').ztree_toc(ztree_conf);
         //增加行号
-        $('pre code').each(function(){
+        $('pre code').each(function () {
             var lines = $(this).text().split('\n').length - 1;
             var $numbering = $('<ul/>').addClass('pre-numbering');
             $(this).addClass('has-numbering').parent().append($numbering);
-            for(var i=1;i<=lines;i++){
+            for (var i = 1; i <= lines; i++) {
                 $numbering.append($('<li/>').text(i));
             }
         });
+        //回到顶部
+        $(window).scroll(function () {
+            var $scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;//兼容浏览器
+            if ($scrollTop > 150) {
+                $("#up").show();
+            } else {
+                $("#up").hide();
+            }
+        });
+        $("#up").click(function () {
+            $('body,html').animate({scrollTop: 0}, 500);
+            return false;
+        });
     });
 </script>
+</body>
+</html>
