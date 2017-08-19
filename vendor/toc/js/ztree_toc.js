@@ -72,7 +72,6 @@ $(function ($) {
         }
         if (opts.is_auto_number == true) {
             if ($(header_obj).text().indexOf(opts._headers.join('.')) != -1) {
-
             } else {
                 $(header_obj).text(opts._headers.join('.') + '. ' + $(header_obj).text());
             }
@@ -86,6 +85,16 @@ $(function ($) {
         var id = encode_id_with_array(opts, opts._headers);
         var pid = get_parent_id_with_array(opts, opts._headers);
         $(header_obj).attr('id', id);
+        //获取标题
+        var text=$.trim($(header_obj).text());
+        //如果已编号则去除编号
+        if(text.indexOf(' ')!=-1){
+            text=$.trim(text.substring(text.indexOf(' ')+1,text.length));
+        }
+        //循环页面内指向该锚点的链接然后把链接的href修改成该锚点的id
+        $("[href='#"+text+"']").each(function(){
+            $(this).attr('href','#'+id);
+        });
         opts._header_offsets.push($(header_obj).offset().top - opts.highlight_offset);
         opts._header_nodes.push({
             id: id,
