@@ -71,9 +71,9 @@ $(function ($) {
             }
         }
         if (opts.is_auto_number == true) {
-            if ($(header_obj).text().indexOf(opts._headers.join('.')) != -1) {
+            if ($(header_obj).html().indexOf(opts._headers.join('.')) != -1) {
             } else {
-                $(header_obj).text(opts._headers.join('.') + '. ' + $(header_obj).text());
+                $(header_obj).html(opts._headers.join('.') + '. ' + $(header_obj).html());
             }
         }
     }
@@ -99,7 +99,7 @@ $(function ($) {
         opts._header_nodes.push({
             id: id,
             pId: pid,
-            name: $(header_obj).text() || 'null',
+            name: $(header_obj).html() || 'null',
             open: true,
             url: '#' + id,
             target: '_self'
@@ -195,7 +195,8 @@ $(function ($) {
                 dblClickExpand: false,
                 showLine: true,
                 showIcon: false,
-                selectedMulti: false
+                selectedMulti: false,
+                nameIsHTML: true//节点名称支持html
             },
             data: {
                 simpleData: {
